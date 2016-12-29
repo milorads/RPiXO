@@ -668,7 +668,7 @@ def TicTacToe(debugging=True):
             board.draw()
             if turn != 'comp':
                 print(players[turn].getName(),'please select a space.')
-                #selection = str(input('Space: ')).upper()
+               #selection = str(input('Space: ')).upper()
                 selection = board.checkButton()
                 if not d.active or selection not in ["RESET", "END"]:
                     errorCheck = board.checkEntry(selection,selected)
@@ -676,7 +676,7 @@ def TicTacToe(debugging=True):
                         errorMessage = errorCheck['message'].format(selection)
                         print(errorMessage)
                         print(players[turn].getName(),'please select a space.')
-                        #selection = str(input('Space: ')).upper()
+                       #selection = str(input('Space: ')).upper()
                         selection = board.checkButton()
                         errorCheck = board.checkEntry(selection,selected)
                 if selection == 'END':
