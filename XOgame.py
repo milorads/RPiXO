@@ -150,6 +150,7 @@ class ticBoard():
             return {'valid':False,'entry':entry, 'message':'\n{} has already been selected!'}
 
     def checkButton(self):
+        print('Waiting for button input.')
         while True:
             UL = GPIO.input(25)
             UM = GPIO.input(8)
@@ -177,7 +178,7 @@ class ticBoard():
                 break
             if CL == False:
                 print('CL Pressed')
-                outString = "UCL"
+                outString = "CL"
                 time.sleep(0.2)
                 break
             if CM == False:
@@ -206,8 +207,6 @@ class ticBoard():
                 time.sleep(0.2)
                 break
         return outString
-
-
 
     def buildString(self, string):
         if len(string) != 9:
@@ -525,7 +524,7 @@ def TicTacToe(debugging=True):
         GPIO.setmode(GPIO.BCM)
 
         for pinNumber in pins:
-            GPIO.setup(pins[pinNumber], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+            GPIO.setup(pins[pinNumber], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     ###MENUS###
 
@@ -669,15 +668,16 @@ def TicTacToe(debugging=True):
             board.draw()
             if turn != 'comp':
                 print(players[turn].getName(),'please select a space.')
-                selection = str(input('Space: ')).upper()
-                selection = checkButton()
+                #selection = str(input('Space: ')).upper()
+                selection = board.checkButton()
                 if not d.active or selection not in ["RESET", "END"]:
                     errorCheck = board.checkEntry(selection,selected)
                     while not errorCheck['valid']:
                         errorMessage = errorCheck['message'].format(selection)
                         print(errorMessage)
                         print(players[turn].getName(),'please select a space.')
-                        selection = str(input('Space: ')).upper()
+                        #selection = str(input('Space: ')).upper()
+                        selection = board.checkButton()
                         errorCheck = board.checkEntry(selection,selected)
                 if selection == 'END':
                     break
